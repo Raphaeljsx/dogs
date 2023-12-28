@@ -1,8 +1,10 @@
+import Api from "./api/Api";
+import "./app.css";
 function App() {
   return (
     <>
       <div>
-        <h1>tste</h1>
+        <Api />
       </div>
     </>
   );
