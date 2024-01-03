@@ -1,4 +1,48 @@
-input{
+:root{
+  --primary-font: Helvetica, Arial, Sans-serif;
+  --second-font: 'Spectral', Georgia;
+  --text-color: #333
+}
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html{
+  font-size: 62.5%;
+}
+
+body{
+  font-size: 1.6rem;
+  color: var(--text-color);
+  font-family: var(--primary-font);
+  padding-top: 6.4rem;
+}
+
+ul,li{
+  list-style: none;
+}
+
+img{
   display: block;
-  margin-bottom: 1rem;
+  max-width: 100%;
+}
+
+button, input{
+  display: block;
+  font-size: 1.6rem;
+  font-family: var(--primary-font);
+  color: var(--text-color);
+}
+
+a{
+  text-decoration: none;
+}
+
+.container{
+  max-width: 80rem;
+  padding: 0 1.6rem;
+  margin: 0 auto;
 }
