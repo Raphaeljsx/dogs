@@ -17,17 +17,13 @@ export const UserStorage = ({ children }) => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const userLogout = useCallback(
-    async function () {
-      setData(null);
-      setError(null);
-      setLoading(false);
-      setLogin(false);
-      window.localStorage.removeItem("token");
-      navigate("/login");
-    },
-    [navigate]
-  );
+  const userLogout = useCallback(async function () {
+    setData(null);
+    setError(null);
+    setLoading(false);
+    setLogin(false);
+    window.localStorage.removeItem("token");
+  }, []);
 
   useEffect(() => {
     async function autoLogin() {
@@ -40,9 +36,7 @@ export const UserStorage = ({ children }) => {
           const { url, options } = TOKEN_VALIDATE_POST(token);
           const response = await fetch(url, options);
 
-          if (!response.ok) {
-            throw new Error("Token inválido");
-          }
+          if (!response.ok) throw new Error("Token inválido");
 
           await getUser(token);
         } catch (e) {
@@ -50,9 +44,11 @@ export const UserStorage = ({ children }) => {
         } finally {
           setLoading(false);
         }
+      } else {
+        setLogin(false);
       }
-      setLoading(false);
     }
+
     autoLogin();
   }, [userLogout]);
 
@@ -63,7 +59,6 @@ export const UserStorage = ({ children }) => {
 
     setData(json);
     setLogin(true);
-    console.log(json);
   }
 
   async function userLogin(username, password) {

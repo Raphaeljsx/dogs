@@ -1,15 +1,31 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import Input from "../Forms/Input";
+import InputCheck from "../Forms/InputCheck";
 import Button from "../Forms/Button";
 import useForm from "../../Hooks/useForm";
 import { USER_POST } from "../../api/api";
 import { UserContext } from "../../UserContext";
+import { useFetch } from "../../Hooks/UseFetch";
+import Error from "../../Helper/Error";
 
 const LoginCreate = () => {
   const username = useForm();
   const password = useForm();
   const email = useForm("email");
+  const [view, setView] = useState(false);
+
   const { userLogin } = useContext(UserContext);
+  const { loading, error, request } = useFetch();
+
+  const changeView = useCallback(() => {
+    !view ? setView(true) : setView(false);
+  }, [view]);
+
+  useEffect(() => {
+    if (view.checked) {
+      changeView();
+    }
+  }, [changeView, view]);
 
   async function createUser(event) {
     event.preventDefault();
@@ -20,7 +36,7 @@ const LoginCreate = () => {
       password: password.value,
     });
 
-    const response = await fetch(url, options);
+    const { response } = await request(url, options);
 
     if (response.ok) userLogin(username.value, password.value);
   }
@@ -30,8 +46,24 @@ const LoginCreate = () => {
       <form onSubmit={createUser}>
         <Input label="Usuário" type="text" name="username" {...username} />
         <Input label="Email" type="email" name="email" {...email} />
-        <Input label="Senha" type="password" name="password" {...password} />
-        <Button text="Cadastrar" />
+        <Input
+          label="Senha"
+          type={view ? "text" : "password"}
+          name="password"
+          {...password}
+        />
+        <InputCheck
+          label="Ver senha"
+          type="checkbox"
+          name="ver"
+          onChange={changeView}
+        />
+        {loading ? (
+          <Button disabled text="Cadastrando.." />
+        ) : (
+          <Button text="Cadastrar" />
+        )}
+        <Error error={error} />
       </form>
     </section>
   );
