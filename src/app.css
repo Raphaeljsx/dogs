@@ -50,6 +50,10 @@ a{
   margin: 0 auto;
 }
 
+.mainContainer{
+  margin-top: 3.2rem;
+}
+
 .title{
   font-family: var(--second-font);
   line-height: 1;
@@ -90,3 +94,17 @@ a{
   }
 }
 
+
+.App{
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh + 16rem);
+}
+
+.AppBody{
+  flex: 1;
+}
+
+.VictoryContainer{
+  height: initial !important;
+}

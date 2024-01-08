@@ -1,0 +1,28 @@
+.graph{
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 3.2rem;
+margin: 3.2rem 0;
+}
+.graphItem{
+  box-shadow: 0 10px 20px rgba(0,0,0,.1);
+  border-radius: .32rem;
+  display: grid;
+  align-items: center;
+}
+
+.total{
+  grid-column: 1/3;
+  padding: 3.2rem;
+  font-size: 3.2rem;
+}
+
+@media(max-width: 64rem ){
+  .graph{
+    grid-template-columns: 1fr;
+    
+  }
+  .total{
+    grid-column: 1;
+  }
+}

@@ -1,10 +1,14 @@
 import React from "react";
+import Feed from "./Feed/Feed";
+import Loading from "../Helper/Loading";
+import Head from "../Helper/Head";
 
 const Home = () => {
   return (
-    <div>
-      <h1>Home</h1>
-    </div>
+    <section className="container mainContainer">
+      <Head title="Fotos" description="Home do site Dogs, com feed de fotos." />
+      <Feed />
+    </section>
   );
 };
 
