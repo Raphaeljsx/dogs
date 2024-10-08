@@ -1,20 +1,18 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useFetch } from "../../Hooks/UseFetch";
-import { PHOTO_GETID } from "../../api/api";
 import Error from "../../Helper/Error";
 import Loading from "../../Helper/Loading";
 import PhotoContent from "./PhotoContent";
 import Head from "../../Helper/Head";
+import { useStorePhoto } from "../../store/useStore";
 
 const Photo = () => {
   const { id } = useParams();
-  const { data, loading, error, request } = useFetch();
+  const { loading, error, data, fetchPhotos } = useStorePhoto();
 
-  useEffect(() => {
-    const { url, options } = PHOTO_GETID(id);
-    request(url, options);
-  }, [id, request]);
+  useEffect(()=>{
+    if(id) fetchPhotos(id)
+  }, [id, fetchPhotos]);
 
   if (error) return <Error error={error} />;
   if (loading) return <Loading />;
@@ -22,7 +20,7 @@ const Photo = () => {
     return (
       <section className="container mainContainer">
         <Head title={data.photo.title} />
-        <PhotoContent single={true} data={data} />
+        <PhotoContent single={ true }  />
       </section>
     );
   else return null;

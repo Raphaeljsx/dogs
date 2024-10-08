@@ -5,10 +5,14 @@ import PhotoComments from "./PhotoComments";
 import { UserContext } from "../../UserContext";
 import PhotoDelete from "./PhotoDelete";
 import Image from "../../Helper/Image";
+import { useStorePhoto } from "../../store/useStore";
 
-const PhotoContent = ({ data, single }) => {
-  const { photo, comments } = data;
+const PhotoContent = ({ single }) => {
+ 
   const user = useContext(UserContext);
+  const {data} = useStorePhoto();
+  const { photo, comments } = data
+  
   return (
     <div className={`${styles.photo} ${single ? styles.single : ""}`}>
       <div className={styles.img}>

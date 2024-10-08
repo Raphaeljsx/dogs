@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
 import styles from "./FeedModal.module.css";
 import { useFetch } from "../../Hooks/UseFetch";
-
 import Error from "../../Helper/Error";
 import Loading from "../../Helper/Loading";
 import PhotoContent from "../Photo/PhotoContent";
 import { PHOTO_GET } from "../../api/api";
+import { useStorePhoto } from "../../store/useStore";
 
 const FeedModal = ({ photo, setModalPhoto }) => {
-  const { data, error, loading, request } = useFetch();
 
-  useEffect(() => {
-    const { url, options } = PHOTO_GET(photo.id);
-    request(url, options);
-  }, [photo, request]);
+  const { loading, error, data, fetchPhotos } = useStorePhoto();
+
+  useEffect(()=>{
+    if(photo) fetchPhotos(photo.id)
+  }, [photo, fetchPhotos]);
 
   return (
     <div
@@ -24,7 +24,7 @@ const FeedModal = ({ photo, setModalPhoto }) => {
     >
       {error && <Error error={error} />}
       {loading && <Loading />}
-      {data && <PhotoContent data={data} />}
+      {data && <PhotoContent  />}
     </div>
   );
 };
