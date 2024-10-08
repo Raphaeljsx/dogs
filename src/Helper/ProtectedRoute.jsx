@@ -1,16 +1,16 @@
-import React, { useContext } from "react";
-import { UserContext } from "../UserContext";
+import React from "react";
 import { Navigate } from "react-router-dom";
+import { useStoreUser } from "../store/useStore";
 
 const ProtectedRoute = ({ children }) => {
-  const { login } = useContext(UserContext);
+  const { user } = useStoreUser();
 
-  if (login === true) {
+  if (user) {
     return children;
-  } else if (login === false) {
+  } else if (user === null) {
     return <Navigate to="/login" />;
   } else {
-    return <></>;
+    return null;
   }
 
   // return login ? children : <Navigate to="/login" />;

@@ -3,9 +3,10 @@ import styles from "./css/Header.module.css";
 import { Link } from "react-router-dom";
 import Dog from "../assets/dogs.svg?react";
 import { UserContext } from "../UserContext";
+import { useStoreUser } from "../store/useStore";
 
 const Header = () => {
-  const { data, userLogout } = useContext(UserContext);
+  const { user } = useStoreUser();
 
   return (
     <header className={styles.header}>
@@ -13,9 +14,9 @@ const Header = () => {
         <Link className={styles.logo} to="/" aria-label="Dogs - Home">
           <Dog />
         </Link>
-        {data ? (
+        {user ? (
           <Link className={styles.login} to="/conta">
-            {data.nome}
+            {user.nome}
           </Link>
         ) : (
           <Link className={styles.login} to="/login">

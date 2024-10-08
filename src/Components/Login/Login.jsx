@@ -7,13 +7,15 @@ import LoginPasswordReset from "./LoginPasswordReset";
 import { UserContext } from "../../UserContext";
 import styles from "./Login.module.css";
 import NotFound from "../NotFound";
+import { useStoreUser } from "../../store/useStore";
 
 const Login = () => {
   const { login } = useContext(UserContext);
+  const { user } = useStoreUser();
 
-  if (login === true) {
-    <Navigate to="/conta" />;
-  }
+  // if (login === true) return <Navigate to="/conta" />;
+  if (user) return <Navigate to="/conta" />;
+  
   return (
     <section className={styles.login}>
       <div className={styles.forms}>

@@ -8,17 +8,24 @@ import Error from "../../Helper/Error";
 import styles from "./LoginForm.module.css";
 import stylesBtn from "../Forms/Button.module.css";
 import Head from "../../Helper/Head";
+import { useStoreToken, useStoreUser } from "../../store/useStore";
+import { userLogin } from "../../store/useStore";
 
 const LoginForm = () => {
   const username = useForm();
   const password = useForm();
-  const { userLogin, error, loading } = useContext(UserContext);
+  // const { userLogin, error, loading } = useContext(UserContext);
+  
+  const storeToken = useStoreToken();
+  const storeUser = useStoreUser();
+  const loading = storeToken.loading || storeUser.loading;
+  const error = storeToken.error || storeToken.error;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (username.validate() && password.validate()) {
-      userLogin(username.value, password.value);
+      userLogin({username: username.value, password: password.value});
     }
   };
 
