@@ -7,10 +7,12 @@ import AdicionarFoto from "../../assets/adicionar.svg?react";
 import Sair from "../../assets/sair.svg?react";
 import styles from "./UserHeaderNav.module.css";
 import useMedia from "../../Hooks/useMedia";
+import { userLogout } from "../../store/useStore";
 
 const UserHeaderNav = () => {
   const mobile = useMedia("(max-width:640px)");
-  const { userLogout } = useContext(UserContext);
+  // const { userLogout } = useContext(UserContext);
+ 
   const navigate = useNavigate();
   const [mobileMenu, setMobileMenu] = useState(false);
 

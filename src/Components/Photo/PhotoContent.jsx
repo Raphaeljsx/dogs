@@ -2,17 +2,15 @@ import React, { useContext } from "react";
 import styles from "./PhotoContent.module.css";
 import { Link } from "react-router-dom";
 import PhotoComments from "./PhotoComments";
-import { UserContext } from "../../UserContext";
 import PhotoDelete from "./PhotoDelete";
 import Image from "../../Helper/Image";
-import { useStorePhoto } from "../../store/useStore";
+import { useStorePhoto, useStoreUser } from "../../store/useStore";
 
 const PhotoContent = ({ single }) => {
- 
-  const user = useContext(UserContext);
-  const {data} = useStorePhoto();
-  const { photo, comments } = data
-  
+  const { user } = useStoreUser();
+  const { data } = useStorePhoto();
+  const { photo, comments } = data;
+
   return (
     <div className={`${styles.photo} ${single ? styles.single : ""}`}>
       <div className={styles.img}>
@@ -21,7 +19,7 @@ const PhotoContent = ({ single }) => {
       <div className={styles.details}>
         <div>
           <p className={styles.author}>
-            {user.data && user.data.username === photo.author ? (
+            {user && user?.username === photo.author ? (
               <PhotoDelete id={photo.id} />
             ) : (
               <Link to={`/perfil/${photo.author}`}>@{photo.author}</Link>

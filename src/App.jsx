@@ -4,18 +4,24 @@ import Header from "./Components/Header";
 import Home from "./Components/Home";
 import "./app.css";
 import Login from "./Components/Login/Login";
-import { UserStorage } from "./UserContext";
 import User from "./Components/User/User";
 import ProtectedRoute from "./Helper/ProtectedRoute";
 import Photo from "./Components/Photo/Photo";
 import UserProfile from "./Components/User/UserProfile";
 import NotFound from "./Components/NotFound";
+import { useEffect } from "react";
+import { autoLogin } from "./store/useStore";
 
 function App() {
+
+  useEffect(() => {
+    autoLogin();
+  },[])
+
   return (
     <div className="App">
       <BrowserRouter>
-        <UserStorage>
+       
           <Header />
           <main className="AppBody">
             <Routes>
@@ -35,7 +41,7 @@ function App() {
             </Routes>
           </main>
           <Footer />
-        </UserStorage>
+        
       </BrowserRouter>
     </div>
   );

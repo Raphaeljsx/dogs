@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import LoginForm from "./LoginForm";
 import LoginCreate from "./LoginCreate";
@@ -8,12 +8,13 @@ import { UserContext } from "../../UserContext";
 import styles from "./Login.module.css";
 import NotFound from "../NotFound";
 import { useStoreUser } from "../../store/useStore";
+import Loading from "../../Helper/Loading";
 
 const Login = () => {
-  const { login } = useContext(UserContext);
-  const { user } = useStoreUser();
+  const { user, loading } = useStoreUser();
 
   // if (login === true) return <Navigate to="/conta" />;
+  if(loading) return <Loading />
   if (user) return <Navigate to="/conta" />;
   
   return (

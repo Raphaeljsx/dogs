@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { UserContext } from "../../UserContext";
 import PhotoCommentsForm from "./PhotoCommentsForm";
 import styles from "./PhotoComments.module.css";
+import { useStoreUser } from "../../store/useStore";
 
 const PhotoComments = ({ id, comments, single }) => {
-  const { login } = useContext(UserContext);
+  const { user } = useStoreUser();
   const [writer, setWriter] = useState(() => comments);
   const commentSection = useRef(null);
 
@@ -24,7 +24,7 @@ const PhotoComments = ({ id, comments, single }) => {
           </li>
         ))}
       </ul>
-      {login && (
+      {user && (
         <PhotoCommentsForm single={single} id={id} setWriter={setWriter} />
       )}
     </>

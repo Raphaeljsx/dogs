@@ -8,6 +8,7 @@ import { UserContext } from "../../UserContext";
 import { useFetch } from "../../Hooks/UseFetch";
 import Error from "../../Helper/Error";
 import Head from "../../Helper/Head";
+import { userLogin } from "../../store/useStore";
 
 const LoginCreate = () => {
   const username = useForm();
@@ -15,7 +16,6 @@ const LoginCreate = () => {
   const email = useForm("email");
   const [view, setView] = useState(false);
 
-  const { userLogin } = useContext(UserContext);
   const { loading, error, request } = useFetch();
 
   const changeView = useCallback(() => {
@@ -39,7 +39,7 @@ const LoginCreate = () => {
 
     const { response } = await request(url, options);
 
-    if (response.ok) userLogin(username.value, password.value);
+    if (response.ok) userLogin({username:username.value, password:password.value});
   }
   return (
     <section className="animeLeft">
